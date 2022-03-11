@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Carrousel from "../components/Carrousel/Carrousel";
 import Catalog from "../components/Catalog/Catalog";
+import InitialSection from "../components/InitialSection/InitialSection";
 import Search from "../components/Search/Search";
 import {
   getConfiguration,
@@ -47,7 +48,7 @@ const HomePage = () => {
 
   return (
     <React.Fragment>
-      <h2>Movies List</h2>
+      <InitialSection />
       {moviesAndConf.popular.results && (
         <Carrousel
           items={moviesAndConf.popular.results}
@@ -57,13 +58,16 @@ const HomePage = () => {
           effect={"coverflow"}
           autoplay={true}
           className={'.swiper-slide'}
+          cover={true}
           pagination={{clickable:true}}
-          classNameSwiper={'swiper-popular'}
+          classNameSwiper={'swiper-popular'}   
+          title={'What\'s popular?'}       
           />
       )}
+      
       <Search onSearch={searchHandler}  />
-
-      {moviesAndConf.recent.results && (        
+      {moviesAndConf.recent.results && (
+        
         <Catalog 
           recent={moviesAndConf.recent.results}
           search={moviesAndConf?.moviesSearch}
