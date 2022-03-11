@@ -24,8 +24,10 @@ const Carrousel = (props) => {
     path,
     autoplay,
     className,
+    cover,
     pagination,
     classNameSwiper,
+    title,
   } = props;
 
   const slides = [];
@@ -34,10 +36,11 @@ const Carrousel = (props) => {
       slides.push(
         <SwiperSlide key={item.id} className={className}>
           <CarrouselItem
-            imageTitle={item.title}
+            item={item}
             imagePath={conf.base_url + conf.logo_sizes[6] + item[path]}
-            name={item?.name}
-            className={item?.name ? 'img-cast': 'img-popular'}
+            cover={cover}
+            className={item?.name ? "img-cast" : "img-popular"}
+            conf={conf}
           />
         </SwiperSlide>
       );
@@ -45,27 +48,30 @@ const Carrousel = (props) => {
   }
   return (
     <React.Fragment>
-      {items && (
-        <Swiper
-          navigation={true}
-          effect={effect}
-          centeredSlides={false}
-          slidesPerView={"auto"}
-          loop={loop}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          pagination={pagination}
-          autoplay={autoplay}
-          className={classNameSwiper}
-        >
-          {slides}
-        </Swiper>
-      )}
+      <div className="carousel_container">
+        <h2 className="title">{title}</h2>
+        {items && (
+          <Swiper
+            navigation={true}
+            effect={effect}
+            centeredSlides={false}
+            slidesPerView={"auto"}
+            loop={loop}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            pagination={pagination}
+            autoplay={autoplay}
+            className={classNameSwiper}
+          >
+            {slides}
+          </Swiper>
+        )}
+      </div>
     </React.Fragment>
   );
 };
