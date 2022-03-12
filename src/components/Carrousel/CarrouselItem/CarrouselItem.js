@@ -3,7 +3,6 @@ import './CarrouselItem.css';
 import profile from '../../../assets/profile_img.png';
 import movie from '../../../assets/movie_img.png';
 import { Link } from "react-router-dom";
-
 const CarrouselItem = (props) => {
   const item = props.item;
   let path = '';
