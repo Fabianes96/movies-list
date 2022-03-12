@@ -17,10 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ image = "" }) => {
   const authCtx = useContext(AuthContext);
-  const settings = ["Profile", "Logout"];
+  const settings = ["Logout"];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -35,7 +33,7 @@ const Header = ({ image = "" }) => {
       authCtx.dispatch({
         type: types.logout,
       });
-    }    
+    }
   };
 
   return (
@@ -52,41 +50,51 @@ const Header = ({ image = "" }) => {
           </Typography>
 
           {authCtx.user?.isLogged && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar src={image !== "" ? image : "/broken-image.jpg"} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+            <>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                id="text-username"               
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography
-                      id={setting}
-                      textAlign="center"
-                      onClick={handleOptions}
-                    >
-                      {setting}
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+                {authCtx.user.name}
+              </Typography>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar src={image !== "" ? image : "/broken-image.jpg"} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography
+                        id={setting}
+                        textAlign="center"
+                        onClick={handleOptions}
+                      >
+                        {setting}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </>
           )}
         </Toolbar>
       </Container>

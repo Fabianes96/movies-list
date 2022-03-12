@@ -11,6 +11,9 @@
 .header-content{
   padding: 0 3rem;
 }
+#text-username{
+  margin-right: 1rem;
+}
 @media screen and (max-width:1000px){
   .header-content{
     padding: 0 1rem;
