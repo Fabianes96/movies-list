@@ -28,9 +28,6 @@ const HomePage = () => {
       },
     })
   }
-  const recentHandler = async()=>{
-    return await getRecentMovies();
-  }
   useEffect(() => {
     const fetchMovies = async () => {
       const popular = await getPopularMovies();
