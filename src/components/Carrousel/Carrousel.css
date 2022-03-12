@@ -1,12 +1,14 @@
-#carrousel h2{
-  margin: 1rem auto;
-  width: 90%;
+.carousel_container{
+  padding: 0 2rem;
+}
+.swiper.swiper-3d{
+  perspective: 700px;
 }
 .swiper-slide{
   background-position: center;
   background-size: cover;
-  width: 300px;
-  height: 500px;
+  width: 375px;
+  height: auto;
 }
 .swiper-slide-cast{
   max-width: 150px;
@@ -19,7 +21,7 @@
   width: 100%;
 }
 .swiper-popular{
-  width: 95%;  
+  width: 100%;  
   z-index: 10;
   padding-bottom: 3vw;
 }
@@ -36,13 +38,17 @@
   width: 25px;
   height: 7px;
   border-radius: 7px;
+  background-color: #fff;
+}
+.swiper-button-next,
+.swiper-button-prev{
+  color: #fff;
 }
 @media(max-width: 1600px){
   .swiper-slide{
     background-position: center;
     background-size: cover;
-    width: 300px;
-    height: 400px;
+    width: 300px;    
   }
 }
 @media(max-width: 1200px){

@@ -2,22 +2,51 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   width: 100%;
+  background: url('../../assets/movies_back.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+
+.form-container::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background-image: linear-gradient(to top, #0f0f0f, rgba(0,0,0,0));
+}
+.form-container::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
 }
 
 .form{
   display: flex;
+  background-color: #fff;
+  position: relative;
   flex-direction: column;
   width: 20rem;
   gap: 15px;
   border: 2px solid rgba(3,37,65,1);
   padding: 5rem;
-  border-radius: 15px;
-  
+  border-radius: 15px;  
 }
 .form h3{
   align-self: center;
+  color: #000;
+}
+.form p{
+  color: #000;
 }
 .form button{
   align-self: center;

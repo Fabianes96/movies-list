@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import './App.css';
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import { auth } from './firebase/firebase-config';
 import AppRoutes from './routes/AppRoutes';
@@ -27,6 +28,7 @@ function App() {
     <AuthContext.Provider value={{user,dispatch}}>
       <Header image='' />
       <AppRoutes />
+      <Footer />
     </AuthContext.Provider>
   );
 }

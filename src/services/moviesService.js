@@ -65,6 +65,19 @@ export const getConfiguration = async()=>{
   }
 }
 
+export const searchMovie= async(query,page=1)=>{
+  try {
+    const res = await fetch(`${apiConfig.URL.replace('/movie','/search')}/movie?api_key=${apiConfig.API_KEY}&query=${query}&page=${page}`);
+    if(!res.ok){
+      throw new Error('Something went wrong');
+    }
+    const resJson = await res.json();
+    return resJson   
+  } catch (error) {
+    return error;
+  }
+}
+
 export const getCast = async(id)=>{
   try {
     const res = await fetch(`${apiConfig.URL}/${id}/credits?api_key=${apiConfig.API_KEY}`);

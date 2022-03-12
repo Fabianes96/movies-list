@@ -1,5 +1,18 @@
+#header{
+  top:0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0,30,36,1)
+}
+#header a{
+  text-decoration: none;
+  color: #fff;
+}
 .header-content{
   padding: 0 3rem;
+}
+#text-username{
+  margin-right: 1rem;
 }
 @media screen and (max-width:1000px){
   .header-content{

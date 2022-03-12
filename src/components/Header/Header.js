@@ -13,10 +13,11 @@ import "./Header.css";
 import { AuthContext } from "../../store/auth-context";
 import { logout } from "../../services/authService";
 import { types } from "../../types/types";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ image = "" }) => {
   const authCtx = useContext(AuthContext);
-  const settings = ["Profile", "Logout"];
+  const settings = ["Logout"];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -24,19 +25,19 @@ const Header = ({ image = "" }) => {
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);   
+    setAnchorElUser(null);
   };
-  const handleLogout=async(e)=>{
-    if(e.target.id === 'Logout'){
+  const handleOptions = async (e) => {
+    if (e.target.id === "Logout") {
       await logout();
       authCtx.dispatch({
-        type:types.logout
-      });      
+        type: types.logout,
+      });
     }
-  }
+  };
 
   return (
-    <AppBar position="static">
+    <AppBar id="header" position="fixed">
       <Container maxWidth="false">
         <Toolbar disableGutters className="header-content">
           <Typography
@@ -45,38 +46,55 @@ const Header = ({ image = "" }) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}
           >
-            Movies List
+            <Link to="home">Movies List</Link>
           </Typography>
+
           {authCtx.user?.isLogged && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar src={image !== "" ? image : "/broken-image.jpg"} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+            <>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                id="text-username"               
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography id={setting} textAlign="center" onClick={handleLogout}>{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+                {authCtx.user.name}
+              </Typography>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar src={image !== "" ? image : "/broken-image.jpg"} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography
+                        id={setting}
+                        textAlign="center"
+                        onClick={handleOptions}
+                      >
+                        {setting}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </>
           )}
         </Toolbar>
       </Container>

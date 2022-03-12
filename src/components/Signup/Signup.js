@@ -1,9 +1,11 @@
 import { Alert, Button, FormControl, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { isEmail, isNotEmpty, validLength } from "../../helpers/validations";
 import { useForm } from "../../hooks/useForm";
 import { registerUser } from "../../services/authService";
+import { AuthContext } from "../../store/auth-context";
+import { types } from "../../types/types";
 import "./Signup.css";
 
 const Signup = () => {
@@ -17,7 +19,7 @@ const Signup = () => {
   const emailField = useForm(isEmail);
   const passwordField = useForm(validLength);
   const usernameField = useForm(isNotEmpty);
-  
+  const authCtx = useContext(AuthContext);
   const confirmPass = (value)=> value === passwordField.value;
   const confirmPasswordField = useForm(confirmPass);
 
@@ -30,8 +32,8 @@ const Signup = () => {
   const formSubmitHandler = async(e) => {
     e.preventDefault();
     if (formIsValid) {
-      const user = await registerUser(usernameField.value,emailField.value, passwordField.value);      
-      if(user.includes("auth/email-already-in-use")){
+      const user = await registerUser(usernameField.value,emailField.value, passwordField.value);
+      if(!user?.uid && user.includes("auth/email-already-in-use")){
         setAlert({
           show: true,
           severity:"error",
@@ -44,12 +46,15 @@ const Signup = () => {
       emailField.resetHandler();
       passwordField.resetHandler();
       confirmPasswordField.resetHandler();
-      setAlert({
-        show: true,
-        severity:"success",
-        message: "User successfully added"
-      });
-       
+      const action={
+        type: types.login,
+        payload:{
+          name: user.displayName,
+          uid: user.uid
+        }
+      }
+      authCtx.dispatch(action);
+      return;       
     }else{
       setAlert({
         show: true,

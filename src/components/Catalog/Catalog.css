@@ -1,0 +1,14 @@
+#recent_movies_section{
+  padding: 2rem 3rem;
+}
+.catalog{
+  padding: 2rem;
+  background: rgba(0,30,36,1);  
+}
+.container_recent{
+    display: grid;    
+    position: relative;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+}
+
